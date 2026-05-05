@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 预览器</title>
+    <!-- 引入 Markdown 解析库 marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* ========================================
+           CSS 基础概念：
+           - * 是通配符，选中所有元素
+           - box-sizing: border-box 让 padding 不增加元素大小
+           - margin: 0 去除默认边距
+        ======================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 定义 CSS 变量，方便主题切换 */
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-editor: #0f3460;
+            --text-primary: #eaeaea;
+            --text-secondary: #a0a0a0;
+            --accent: #e94560;
+            --border: #394867;
+        }
+
+        /* 深色主题 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: var(--bg-secondary);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 按钮样式 */
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* 主容器 - 使用 Flexbox 布局 */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 编辑器和预览区的通用样式 */
+        .panel {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* 左侧：编辑区 */
+        .editor-panel {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+        }
+
+        /* 右侧：预览区 */
+        .preview-panel {
+            background-color: var(--bg-primary);
+        }
+
+        /* 面板标题 */
+        .panel-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* 文本编辑区 textarea */
+        /* ========================================
+           textarea 是 HTML 表单元素，用于多行文本输入
+           - resize: none 禁止用户拖动改变大小
+           - outline: none 取消点击时的蓝色边框
+           - tab-size: 2 设置 Tab 键插入2个空格
+        ======================================== */
+        #editor {
+            width: 100%;
+            height: calc(100vh - 120px);
+            background-color: var(--bg-editor);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+            tab-size: 2;
+        }
+
+        #editor:focus {
+            border-color: var(--accent);
+        }
+
+        /* 预览区的 Markdown 样式 */
+        /* ========================================
+           这里定义了渲染后 Markdown 的样式
+           - line-height: 1.8 设置行高
+           - h1-h6 是标题样式
+           - p 是段落
+           - code 是行内代码
+           - pre 是代码块
+        ======================================== */
+        #preview {
+            line-height: 1.8;
+        }
+
+        #preview h1, #preview h2, #preview h3 {
+            margin: 24px 0 12px 0;
+            font-weight: 600;
+        }
+
+        #preview h1 { font-size: 28px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+        #preview h2 { font-size: 22px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+        #preview h3 { font-size: 18px; }
+
+        #preview p {
+            margin: 12px 0;
+        }
+
+        #preview code {
+            background-color: var(--bg-editor);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+        }
+
+        #preview pre {
+            background-color: var(--bg-editor);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        #preview pre code {
+            background: none;
+            padding: 0;
+        }
+
+        #preview blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-secondary);
+        }
+
+        #preview ul, #preview ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        #preview li {
+            margin: 6px 0;
+        }
+
+        #preview a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        #preview a:hover {
+            text-decoration: underline;
+        }
+
+        #preview img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        #preview table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+        }
+
+        #preview table th, #preview table td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        #preview table th {
+            background-color: var(--bg-editor);
+        }
+
+        /* 空状态提示 */
+        .placeholder {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📝 Markdown 预览器</h1>
+        <button onclick="copyHtml()">复制 HTML</button>
+    </header>
+
+    <div class="container">
+        <!-- 左侧：编辑区 -->
+        <div class="panel editor-panel">
+            <div class="panel-title">✏️ 编辑器</div>
+            <!-- ========================================
+                 textarea 元素：
+                 - id="editor" 是我们用 JS 找到它的标识
+                 - placeholder 是空白时显示的提示文字
+                 - oninput 事件：每次输入时触发预览更新
+            ======================================== -->
+            <textarea 
+                id="editor" 
+                placeholder="在这里输入 Markdown...
+
+支持的语法：
+# 标题
+**粗体** *斜体*
+- 列表项
+1. 有序列表
+[链接](url)
+`行内代码`
+```代码块```
+> 引用"></textarea>
+        </div>
+
+        <!-- 右侧：预览区 -->
+        <div class="panel preview-panel">
+            <div class="panel-title">👁️ 预览</div>
+            <div id="preview">
+                <p class="placeholder">输入 Markdown 后，这里会实时显示预览效果...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========================================
+           JavaScript 基础概念：
+           - document.getElementById() 通过 id 找到 HTML 元素
+           - addEventListener() 给元素添加事件监听
+           - innerHTML 设置元素的 HTML 内容
+        ======================================== */
+
+        // 获取编辑器和预览区的元素
+        const editor = document.getElementById('editor');
+        const preview = document.getElementById('preview');
+
+        // 配置 marked.js 选项
+        marked.setOptions({
+            breaks: true,      // 换行符转换为 <br>
+            gfm: true         // 启用 GitHub 风格的 Markdown
+        });
+
+        // 更新预览的函数
+        function updatePreview() {
+            const markdown = editor.value;
+            
+            if (markdown.trim() === '') {
+                // 如果编辑器为空，显示提示
+                preview.innerHTML = '<p class="placeholder">输入 Markdown 后，这里会实时显示预览效果...</p>';
+            } else {
+                // 解析 Markdown 并更新预览
+                // marked.parse() 是 marked.js 提供的函数
+                preview.innerHTML = marked.parse(markdown);
+            }
+        }
+
+        // 给编辑器添加输入事件监听
+        // 每当用户输入时，更新预览
+        editor.addEventListener('input', updatePreview);
+
+        // 复制 HTML 功能
+        function copyHtml() {
+            const html = preview.innerHTML;
+            navigator.clipboard.writeText(html).then(() => {
+                alert('HTML 已复制到剪贴板！');
+            }).catch(err => {
+                console.error('复制失败:', err);
+            });
+        }
+
+        // 让 Tab 键在编辑器中插入空格而非切换焦点
+        editor.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                
+                // 获取光标位置
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                
+                // 在光标位置插入空格
+                this.value = this.value.substring(0, start) + '  ' + this.value.substring(end);
+                
+                // 把光标移动到插入空格之后的位置
+                this.selectionStart = this.selectionEnd = start + 2;
+                
+                // 触发更新预览
+                updatePreview();
+            }
+        });
+
+        // 页面加载时显示示例
+        editor.value = `# 欢迎使用 Markdown 预览器！
+
+这是一个简单的 Markdown 实时预览工具。
+
+## 功能特点
+
+- 📝 实时预览编辑
+- 🎨 深色主题
+- 📋 一键复制 HTML
+
+## 支持的语法
+
+**粗体文本**
+*斜体文本*
+~~删除线~~
+
+### 列表
+
+无序列表：
+- 项目一
+- 项目二
+  - 子项目
+
+有序列表：
+1. 第一步
+2. 第二步
+3. 第三步
+
+### 代码
+
+行内代码：\`const x = 10\`
+
+代码块：
+\`\`\`javascript
+function hello() {
+    console.log('Hello World!');
+}
+\`\`\`
+
+### 引用
+
+> 这是引用文字。
+> 可以用来高亮重要内容。
+
+### 表格
+
+| 功能 | 状态 |
+|------|------|
+| 实时预览 | ✅ |
+| 复制 HTML | ✅ |
+
+---
+
+试试编辑左边的内容，右边会实时更新！`;
+
+        // 初始化预览
+        updatePreview();
+
+        /* ========================================
+           学习要点总结：
+
+           1. HTML 结构：
+              - <textarea> 用于多行文本输入
+              - <div> 用于分组和布局
+
+           2. CSS 基础：
+              - 选择器（tag, #id, .class）
+              - Flexbox 布局（display: flex）
+              - 变量（--var-name）
+
+           3. JavaScript 基础：
+              - 获取元素：getElementById
+              - 事件监听：addEventListener
+              - 修改内容：innerHTML / value
+
+           4. 第三方库：
+              - marked.js 负责解析 Markdown
+              - CDN 引入无需安装
+        ======================================== */
+    </script>
+</body>
+</html>

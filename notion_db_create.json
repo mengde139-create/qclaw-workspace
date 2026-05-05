@@ -1,0 +1,73 @@
+{
+  "parent": {
+    "type": "page_id",
+    "page_id": "35724a19-b2ce80d7a14aec0928c2d5a8"
+  },
+  "icon": {
+    "type": "emoji",
+    "emoji": "🎯"
+  },
+  "title": [
+    {
+      "type": "text",
+      "text": {
+        "content": "AI教练训练数据库"
+      }
+    }
+  ],
+  "properties": {
+    "名称": {
+      "title": {}
+    },
+    "等级": {
+      "select": {
+        "options": [
+          { "name": "Lv1", "color": "gray" },
+          { "name": "Lv2", "color": "blue" },
+          { "name": "Lv3", "color": "purple" },
+          { "name": "Lv4", "color": "green" },
+          { "name": "Lv5", "color": "yellow" }
+        ]
+      }
+    },
+    "当前EXP": { "number": {} },
+    "EXP目标": { "number": {} },
+    "总训练次数": { "number": {} },
+    "活跃客户数": { "number": {} },
+    "连续收入周数": { "number": {} },
+    "总收入": { "number": {} },
+    "最近突破时间": { "date": {} },
+    "最大障碍模式": { "rich_text": {} },
+    "突破笔记": { "rich_text": {} },
+    "阶段": {
+      "select": {
+        "options": [
+          { "name": "阶段一", "color": "red" },
+          { "name": "阶段二", "color": "orange" },
+          { "name": "阶段三", "color": "yellow" },
+          { "name": "阶段四", "color": "green" }
+        ]
+      }
+    },
+    "Sprint目标": { "rich_text": {} },
+    "Sprint截止": { "date": {} },
+    "心理画像": {
+      "select": {
+        "options": [
+          { "name": "恐惧型", "color": "red" },
+          { "name": "动力型", "color": "green" },
+          { "name": "压力应对型", "color": "purple" }
+        ]
+      }
+    },
+    "练功状态": {
+      "select": {
+        "options": [
+          { "name": "已完成", "color": "green" },
+          { "name": "进行中", "color": "yellow" },
+          { "name": "未开始", "color": "red" }
+        ]
+      }
+    }
+  }
+}
