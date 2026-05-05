@@ -1,0 +1,28 @@
+# OpenClaw config (contains API keys)
+.openclaw/
+
+# Binary files and media
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.pdf
+
+# Session data
+sessions/
+
+# Temp files
+*.tmp
+*.log
+.DS_Store
+
+# Node modules (if any)
+node_modules/
+
+# Nested git repos (submodules)
+projects/writing-coach-app/

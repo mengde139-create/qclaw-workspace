@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "description": "AI 内容变现成长教练 MCP 配置",
+  "channels": {
+    "wechat": {
+      "userId": "1925091806",
+      "note": "从现有 cron job 配置中提取"
+    }
+  },
+  "notion": {
+    "apiKey": "",
+    "databaseId": "",
+    "status": "pending_setup"
+  },
+  "cron": {
+    "dailyReminder": {
+      "enabled": true,
+      "time": "09:00",
+      "message": "📋 早！今天练功了吗？15分钟，写一条朋友圈发给我，我来反馈。"
+    },
+    "weeklyReport": {
+      "enabled": true,
+      "day": "monday",
+      "time": "09:00",
+      "note": "发送上周训练数据总结"
+    }
+  },
+  "notionDatabase": {
+    "databaseId": "",
+    "properties": {
+      "日期": "date",
+      "类型": "select",
+      "内容": "title",
+      "备注": "rich_text",
+      "经验值": "number",
+      "状态": "status"
+    }
+  }
+}

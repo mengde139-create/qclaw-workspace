@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-01T22:01:44.243Z",
+  "entries": {
+    "memory:memory/2026-04-15.md:1:27": {
+      "key": "memory:memory/2026-04-15.md:1:27",
+      "path": "memory/2026-04-15.md",
+      "startLine": 1,
+      "endLine": 27,
+      "source": "memory",
+      "snippet": "# 2026-04-15 工作日志 ### 08:01 - 个体户自媒体需求 - 发现个体户普遍有自媒体需求但不知如何下手，计划利用自身能力帮助他们解决自媒体问题 - 关注个体户/小微商家市场，有意向做自媒体服务或咨询类业务 ### 09:12 - 写作英语自媒体 - 用户想刻意练习写作，同时刻意练习英语，并顺便做自媒体，希望三者合一系统化推进 - 设计了「一题三做」系统：同一选题先写中文（练写作）→ 再翻译英文（练英语）→ 发布平台（做自媒体），每天30-45分钟 - 自媒体发布矩阵：中文平台（微信公众号/小红书）+ 英文平台（LinkedIn/Twitter），建议先选一中一英跑通 - 三阶段成长路径：第1-30天建立习惯，第31-90天提升质量，第91天+形成影响力并考虑变现 - 用户下一步行动：今天写第一篇300字中文，发给AI批改 ### 12:36 - 小程序开发工具 - 用户已完成开发者工具登录 ### 17:03-18:07 - miniprogram upload automation debug (deep) Project: writing-coach-app (appid: wx2360a88e00a8c216) Project path: workspace/projects/writing-coach-app/miniprogram Goal: automate miniprogram upload via CLI KEY FINDINGS: 1. CLI: Program Files (x86)/Ten",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "totalScore": 0.5382811660056761,
+      "maxScore": 0.5382811660056761,
+      "firstRecalledAt": "2026-05-01T22:01:44.243Z",
+      "lastRecalledAt": "2026-05-01T22:01:44.243Z",
+      "queryHashes": [
+        "a778d0e07431"
+      ],
+      "recallDays": [
+        "2026-05-02"
+      ],
+      "conceptTags": [
+        "关注个体户/小微商家市场",
+        "每天30-45分钟",
+        "微信公众号/小红书",
+        "linkedin/twitter",
+        "第1-30天建立习惯",
+        "第31-90天提升质量",
+        "03-18",
+        "writing-coach-app"
+      ]
+    },
+    "memory:memory/2026-04-15.md:20:54": {
+      "key": "memory:memory/2026-04-15.md:20:54",
+      "path": "memory/2026-04-15.md",
+      "startLine": 20,
+      "endLine": 54,
+      "source": "memory",
+      "snippet": "### 17:03-18:07 - miniprogram upload automation debug (deep) Project: writing-coach-app (appid: wx2360a88e00a8c216) Project path: workspace/projects/writing-coach-app/miniprogram Goal: automate miniprogram upload via CLI KEY FINDINGS: 1. CLI: Program Files (x86)/Tencent/wei xin web devtools/cli.js (node.exe) 2. IDE User Data: AppData/Local/wei xin devtools/User Data/80d774828fc67c7dafc59cd74ce70db0/Default 3. Key config files: .ide-status (On/Off), .cli (port number), Preferences (Chromium prefs) 4. echo y | CLI upload WORKS: stdin pipe sends confirmation successfully FAILURE CAUSE: - IDE nw.exe (Chromium) crashes due to GPU cache permission denied (0x5) - IDE exits within 2",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "totalScore": 0.5101201904817491,
+      "maxScore": 0.5101201904817491,
+      "firstRecalledAt": "2026-05-01T22:01:44.243Z",
+      "lastRecalledAt": "2026-05-01T22:01:44.243Z",
+      "queryHashes": [
+        "a778d0e07431"
+      ],
+      "recallDays": [
+        "2026-05-02"
+      ],
+      "conceptTags": [
+        "03-18",
+        "writing-coach-app",
+        "tencent/wei",
+        "devtools/cli.js",
+        "node.exe",
+        "appdata/local/wei",
+        "devtools/user",
+        "ide-status"
+      ]
+    },
+    "memory:memory/2026-04-16.md:1:33": {
+      "key": "memory:memory/2026-04-16.md:1:33",
+      "path": "memory/2026-04-16.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# 2026-04-16 工作日志 ### 08:17 - 历史页面开发 - 检查现有 app.json 文件结构，并基于此创建历史记录页面 ### 09:05 - 能力分析功能开发 - 用户指出「能力分析」功能标记为开发中，要求自动开发待开发状态的功能 - 需实现能力分析页面，包括统计数据趋势、能力雷达图、进步曲线等可视化展示 ### 21:04 - 小程序开发 - 用户正在开发写作教练小程序（writing-coach-app），代码已生成6个页面约2500行，编译成功，真机预览和用户验证待完成 - 用户希望在此处接管小程序开发工作 ### 21:08 - 小程序开发 - 首页任务栏点击进入后应能直接更改活动设计任务，当前存在无法设置的问题 ### 21:13 - Bug诊断 - 问题原因：1. refreshData 中 getAll 云函数返回值判断不健壮，返回错误响应时不触发 catch，fallback 不执行；2. 云函数改动后未重新部署，线上 getAll action 不存在 - 需要修复上述两个问题并重新部署云函数 ### 05:58 - 代码备份状态 - 当前小程序开发代码没有备份，未使用 Git 管理，也无版本控制 ### 06:33 - GitHub备份 - 用户要求备份到 GitHub，正在通过 Scoop 安装 gh CLI",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "totalScore": 0.47717618536112644,
+      "maxScore": 0.47717618536112644,
+      "firstRecalledAt": "2026-05-01T22:01:44.243Z",
+      "lastRecalledAt": "2026-05-01T22:01:44.243Z",
+      "queryHashes": [
+        "a778d0e07431"
+      ],
+      "recallDays": [
+        "2026-05-02"
+      ],
+      "conceptTags": [
+        "备份",
+        "app.json",
+        "writing-coach-app",
+        "工作",
+        "日志",
+        "历史",
+        "开发",
+        "检查"
+      ]
+    },
+    "memory:memory/2026-04-15.md:48:73": {
+      "key": "memory:memory/2026-04-15.md:48:73",
+      "path": "memory/2026-04-15.md",
+      "startLine": 48,
+      "endLine": 73,
+      "source": "memory",
+      "snippet": "SOLUTION: User must manually enable IDE service port (Settings -> Security -> Service Port -> On) After that, CLI automation works. ### 20:27 - 小程序自动上传成功 CLI 上传最终跑通，无需任何手动操作。 关键：IDE 需保持运行（.ide-status=On，端口 21161） 命令：echo y | CLI upload ... 路径（CLI）: C:\\Program Files (x86)\\Tencent\\微信web开发者工具\\cli.js 路径（项目）: workspace\\projects\\writing-coach-app\\miniprogram ### 21:00 - v5.0.0 Cloud + AI evaluation Major refactor: replaced all fake APIs with WeChat Cloud Development 4 cloud functions: login, goal, task, evaluate Real rule-based AI evaluation (not random anymore) Cloud database: users, goals, tasks, submissions collections Auto cloud login, data synced across devices Uploaded v5.0.0",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "totalScore": 0.4066074990392969,
+      "maxScore": 0.4066074990392969,
+      "firstRecalledAt": "2026-05-01T22:01:44.243Z",
+      "lastRecalledAt": "2026-05-01T22:01:44.243Z",
+      "queryHashes": [
+        "a778d0e07431"
+      ],
+      "recallDays": [
+        "2026-05-02"
+      ],
+      "conceptTags": [
+        "ide-status",
+        "cli.js",
+        "writing-coach-app",
+        "v5.0.0",
+        "rule-based",
+        "solution",
+        "user",
+        "must"
+      ]
+    }
+  }
+}

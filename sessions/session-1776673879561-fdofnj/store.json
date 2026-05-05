@@ -1,0 +1,25 @@
+{
+  "id": "session-1776673879561-fdofnj",
+  "name": "读书专属页面开发",
+  "status": "active",
+  "createdAt": "2026-04-20T09:02:41.802Z",
+  "updatedAt": "2026-04-21T10:50:21.454Z",
+  "agents": [
+    {
+      "id": "agent_uulgbv86",
+      "name": "Main Agent",
+      "role": "assistant",
+      "status": "idle",
+      "createdAt": "2026-04-20T09:02:41.802Z",
+      "model": "unknown",
+      "systemPrompt": ""
+    }
+  ],
+  "summary": {
+    "id": "summary_p9t994qg",
+    "title": "读书专属页面开发",
+    "createdAt": "2026-04-20T09:02:41.803Z",
+    "file": "summary_p9t994qg.md"
+  },
+  "lastMessageCount": 67
+}

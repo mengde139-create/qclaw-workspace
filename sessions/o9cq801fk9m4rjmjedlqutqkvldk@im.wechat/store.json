@@ -1,0 +1,25 @@
+{
+  "id": "o9cq801fk9m4rjmjedlqutqkvldk@im.wechat",
+  "name": "小程序优化",
+  "status": "active",
+  "createdAt": "2026-04-16T23:59:42.213Z",
+  "updatedAt": "2026-04-17T00:06:49.889Z",
+  "agents": [
+    {
+      "id": "agent_hyqmod2g",
+      "name": "Main Agent",
+      "role": "assistant",
+      "status": "idle",
+      "createdAt": "2026-04-16T23:59:42.213Z",
+      "model": "unknown",
+      "systemPrompt": ""
+    }
+  ],
+  "summary": {
+    "id": "summary_2uk1uzu1",
+    "title": "小程序优化",
+    "createdAt": "2026-04-16T23:59:42.213Z",
+    "file": "summary_2uk1uzu1.md"
+  },
+  "lastMessageCount": 133
+}
